@@ -268,9 +268,3 @@ Services started:
 - `guardianmesh-db`: PostgreSQL 16 on port 5432
 
 ---
-
-## Hackathon Submission Copy
-- **Project Title**: GuardianMesh AI
-- **Tagline**: From smart-home events to real-world understanding.
-- **Track**: Ring Smart Home / AWS Builder
-- **Core Value Proposition**: Traditional home security floods homeowners with meaningless motion alerts. GuardianMesh AI invents the **Situation Engine** to correlate fragmented telemetry into holistic situational understanding with explainable AI reasoning, zero raw video exposure, and audit-ready incident reports.
