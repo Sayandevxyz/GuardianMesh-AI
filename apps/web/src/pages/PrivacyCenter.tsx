@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PrivacySettings } from '../types';
 import { api } from '../api/client';
-import { Lock, Shield, ArrowRight, Trash2, CheckCircle2, Server, EyeOff, Cpu, CloudOff } from 'lucide-react';
+import { Lock, ArrowRight, Trash2, CheckCircle2, EyeOff, Cpu } from 'lucide-react';
 
 export const PrivacyCenter: React.FC = () => {
   const [settings, setSettings] = useState<PrivacySettings | null>(null);
@@ -19,17 +19,6 @@ export const PrivacyCenter: React.FC = () => {
     }
     load();
   }, []);
-
-  const handleToggle = async (key: keyof PrivacySettings) => {
-    if (!settings) return;
-    const updated = { ...settings, [key]: !settings[key] };
-    setSettings(updated);
-    try {
-      await api.updatePrivacySettings(updated);
-    } catch (e) {
-      console.error('Failed to update privacy settings:', e);
-    }
-  };
 
   const handlePurge = async () => {
     if (!window.confirm('Are you sure you want to permanently purge all smart-home event logs and situations?')) {
@@ -49,18 +38,18 @@ export const PrivacyCenter: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in pb-16">
+    <div className="space-y-6 pb-16">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1e2333] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <Lock className="w-5 h-5 text-cyan-400" />
-            <h2 className="text-xl font-bold text-white font-sans">Privacy Center & Data Flow Architecture</h2>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-emerald-950 text-emerald-400 border border-emerald-500/30">
+            <Lock className="w-5 h-5 text-blue-400" />
+            <h2 className="text-xl font-bold text-white font-sans tracking-tight">Privacy & Data Architecture</h2>
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               Zero Raw Video to Cloud LLM
             </span>
           </div>
-          <p className="text-xs text-slate-400 font-mono mt-1">
+          <p className="text-xs text-slate-400 mt-1">
             GuardianMesh extracts structured telemetry locally. Raw video feeds are never transmitted to LLMs.
           </p>
         </div>
@@ -68,7 +57,7 @@ export const PrivacyCenter: React.FC = () => {
         <button
           onClick={handlePurge}
           disabled={purging}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-red-950/80 border border-red-500/40 text-xs font-mono text-red-300 hover:bg-red-900/60 hover:text-white transition-all disabled:opacity-50"
+          className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-rose-500/10 border border-rose-500/30 text-xs font-medium text-rose-300 hover:bg-rose-500/20 transition-all disabled:opacity-50"
         >
           <Trash2 className="w-3.5 h-3.5" />
           {purging ? 'Purging Data...' : 'Purge All Event History'}
@@ -76,15 +65,15 @@ export const PrivacyCenter: React.FC = () => {
       </div>
 
       {purgeSuccess && (
-        <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 text-xs font-mono flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           All historical smart-home events and situations have been securely deleted.
         </div>
       )}
 
       {/* Visual Architectural Data Flow Diagram */}
-      <div className="glass-panel-glow rounded-3xl p-6 sm:p-8 border border-cyan-500/30">
-        <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-cyan-400 mb-2">
+      <div className="clean-panel rounded-2xl p-6 sm:p-8 border border-[#1e2333]">
+        <h3 className="text-sm font-semibold tracking-tight text-white mb-2">
           End-to-End Privacy Architecture
         </h3>
         <p className="text-xs text-slate-300 mb-6 font-sans">
@@ -92,101 +81,101 @@ export const PrivacyCenter: React.FC = () => {
         </p>
 
         {/* Step-by-step pipeline */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-3 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-7 gap-3 items-center">
           {/* Node 1 */}
-          <div className="p-4 rounded-2xl bg-[#080d22] border border-cyan-500/30 text-center space-y-1">
-            <span className="text-[10px] font-mono text-slate-500 block">STEP 1</span>
-            <div className="text-xs font-bold text-white">DEVICE</div>
-            <p className="text-[10px] text-slate-400">Ring Doorbell / Camera / Sensors</p>
+          <div className="p-4 rounded-xl bg-[#0b0d14] border border-[#1e2333] text-center space-y-1">
+            <span className="text-[10px] text-slate-500 block uppercase font-medium">Step 1</span>
+            <div className="text-xs font-semibold text-white">Hardware Device</div>
+            <p className="text-[11px] text-slate-400">Ring Doorbell / Camera / Sensors</p>
           </div>
 
-          <div className="hidden md:flex justify-center text-cyan-400">
+          <div className="hidden md:flex justify-center text-slate-600">
             <ArrowRight className="w-4 h-4" />
           </div>
 
           {/* Node 2 */}
-          <div className="p-4 rounded-2xl bg-[#080d22] border border-cyan-500/30 text-center space-y-1">
-            <span className="text-[10px] font-mono text-slate-500 block">STEP 2</span>
-            <div className="text-xs font-bold text-white">METADATA</div>
-            <p className="text-[10px] text-slate-400">Timestamp, zone, duration (no video)</p>
+          <div className="p-4 rounded-xl bg-[#0b0d14] border border-[#1e2333] text-center space-y-1">
+            <span className="text-[10px] text-slate-500 block uppercase font-medium">Step 2</span>
+            <div className="text-xs font-semibold text-white">Metadata Extraction</div>
+            <p className="text-[11px] text-slate-400">Timestamp, zone, duration (no video)</p>
           </div>
 
-          <div className="hidden md:flex justify-center text-cyan-400">
+          <div className="hidden md:flex justify-center text-slate-600">
             <ArrowRight className="w-4 h-4" />
           </div>
 
           {/* Node 3 */}
-          <div className="p-4 rounded-2xl bg-[#091535] border border-cyan-400/50 text-center space-y-1 shadow-glow-cyan">
-            <span className="text-[10px] font-mono text-cyan-400 font-bold block">CORE</span>
-            <div className="text-xs font-bold text-cyan-300">SITUATION ENGINE</div>
-            <p className="text-[10px] text-slate-300">Local temporal correlation & graph</p>
+          <div className="p-4 rounded-xl bg-[#161a29] border border-blue-500/40 text-center space-y-1">
+            <span className="text-[10px] text-blue-400 font-semibold block uppercase">Core Engine</span>
+            <div className="text-xs font-bold text-white">Situation Engine</div>
+            <p className="text-[11px] text-slate-300">Local temporal correlation & graph</p>
           </div>
 
-          <div className="hidden md:flex justify-center text-cyan-400">
+          <div className="hidden md:flex justify-center text-slate-600">
             <ArrowRight className="w-4 h-4" />
           </div>
 
           {/* Node 4 */}
-          <div className="p-4 rounded-2xl bg-[#080d22] border border-violet-500/40 text-center space-y-1">
-            <span className="text-[10px] font-mono text-violet-400 block">STEP 4</span>
-            <div className="text-xs font-bold text-white">BEDROCK AI</div>
-            <p className="text-[10px] text-slate-400">Reasoning over structured schema</p>
+          <div className="p-4 rounded-xl bg-[#0b0d14] border border-[#1e2333] text-center space-y-1">
+            <span className="text-[10px] text-purple-400 font-semibold block uppercase">Step 4</span>
+            <div className="text-xs font-semibold text-white">Bedrock AI</div>
+            <p className="text-[11px] text-slate-400">Reasoning over structured schema</p>
           </div>
         </div>
       </div>
 
       {/* User Controls & Privacy Toggles */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-4">
-          <h4 className="text-sm font-bold text-white font-sans flex items-center gap-2">
-            <EyeOff className="w-4 h-4 text-cyan-400" />
+        <div className="clean-panel rounded-xl p-6 border border-[#1e2333] space-y-4">
+          <h4 className="text-sm font-semibold text-white flex items-center gap-2">
+            <EyeOff className="w-4 h-4 text-blue-400" />
             Media & Video Privacy
           </h4>
 
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
+          <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#0b0d14] border border-[#1e2333] text-xs">
             <div>
-              <div className="font-semibold text-slate-200">Transmit Raw Video to AI</div>
-              <p className="text-[11px] text-slate-400 font-mono">GuardianMesh permanently disables raw video streaming to cloud LLMs.</p>
+              <div className="font-medium text-slate-200">Transmit Raw Video to AI</div>
+              <p className="text-[11px] text-slate-400">GuardianMesh permanently disables raw video streaming to cloud LLMs.</p>
             </div>
-            <span className="px-2 py-0.5 rounded bg-red-950 border border-red-500/40 text-red-300 font-mono text-[10px]">
-              DISABLED
+            <span className="px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-300 font-medium text-xs">
+              Disabled
             </span>
           </div>
 
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
+          <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#0b0d14] border border-[#1e2333] text-xs">
             <div>
-              <div className="font-semibold text-slate-200">Send Structured Metadata Only</div>
-              <p className="text-[11px] text-slate-400 font-mono">Only temporal event timestamps and locations are analyzed.</p>
+              <div className="font-medium text-slate-200">Send Structured Metadata Only</div>
+              <p className="text-[11px] text-slate-400">Only temporal event timestamps and locations are analyzed.</p>
             </div>
-            <span className="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/40 text-emerald-300 font-mono text-[10px]">
-              ENFORCED
+            <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-medium text-xs">
+              Enforced
             </span>
           </div>
         </div>
 
-        <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-4">
-          <h4 className="text-sm font-bold text-white font-sans flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-cyan-400" />
-            Local Processing & Cloud Controls
+        <div className="clean-panel rounded-xl p-6 border border-[#1e2333] space-y-4">
+          <h4 className="text-sm font-semibold text-white flex items-center gap-2">
+            <Cpu className="w-4 h-4 text-blue-400" />
+            Local Processing Controls
           </h4>
 
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
+          <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#0b0d14] border border-[#1e2333] text-xs">
             <div>
-              <div className="font-semibold text-slate-200">Local Situation Correlation</div>
-              <p className="text-[11px] text-slate-400 font-mono">Run deterministic clustering engine without internet dependency.</p>
+              <div className="font-medium text-slate-200">Local Situation Correlation</div>
+              <p className="text-[11px] text-slate-400">Run deterministic clustering engine without internet dependency.</p>
             </div>
-            <span className="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/40 text-emerald-300 font-mono text-[10px]">
-              ACTIVE
+            <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-medium text-xs">
+              Active
             </span>
           </div>
 
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
+          <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#0b0d14] border border-[#1e2333] text-xs">
             <div>
-              <div className="font-semibold text-slate-200">Data Retention Window</div>
-              <p className="text-[11px] text-slate-400 font-mono">Auto-purge telemetry after 30 days of inactivity.</p>
+              <div className="font-medium text-slate-200">Data Retention Window</div>
+              <p className="text-[11px] text-slate-400">Auto-purge telemetry after 30 days of inactivity.</p>
             </div>
-            <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300 font-mono text-[10px]">
-              30 DAYS
+            <span className="px-2 py-0.5 rounded bg-[#1e2333] text-slate-300 font-medium text-xs">
+              30 Days
             </span>
           </div>
         </div>

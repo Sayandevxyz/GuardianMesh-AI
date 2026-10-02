@@ -39,10 +39,10 @@ export const AlexaModal: React.FC<AlexaModalProps> = ({ isOpen, onClose }) => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-xl rounded-2xl border border-cyan-500/30 bg-[#080d21] shadow-2xl p-6 overflow-hidden">
-        {/* Glowing top line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500"></div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
+      <div className="relative w-full max-w-xl rounded-2xl border border-[#1e2333] bg-[#121520] shadow-2xl p-6 overflow-hidden">
+        {/* Subtle top border line */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
 
         {/* Close Button */}
         <button
@@ -54,17 +54,17 @@ export const AlexaModal: React.FC<AlexaModalProps> = ({ isOpen, onClose }) => {
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-5">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-400/40 flex items-center justify-center text-cyan-400 shadow-glow-cyan">
-            <Volume2 className="w-5 h-5 animate-pulse" />
+          <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+            <Volume2 className="w-5 h-5" />
           </div>
           <div>
             <h3 className="text-lg font-bold text-white flex items-center gap-2">
               Alexa+ / MCP Voice Simulator
-              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-500/40 text-cyan-300">
-                Agent Skill
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                Voice Assistant
               </span>
             </h3>
-            <p className="text-xs text-slate-400 font-mono">
+            <p className="text-xs text-slate-400">
               Natural Language Voice Queries Grounded via Model Context Protocol
             </p>
           </div>
@@ -72,7 +72,7 @@ export const AlexaModal: React.FC<AlexaModalProps> = ({ isOpen, onClose }) => {
 
         {/* Quick utterance suggestions */}
         <div className="mb-4">
-          <label className="text-xs text-slate-400 font-mono mb-1.5 block">Suggested Utterances:</label>
+          <label className="text-xs text-slate-400 mb-1.5 block font-medium">Suggested Utterances:</label>
           <div className="flex flex-wrap gap-2">
             {sampleUtterances.map((sample) => (
               <button
@@ -81,7 +81,7 @@ export const AlexaModal: React.FC<AlexaModalProps> = ({ isOpen, onClose }) => {
                   setUtterance(sample);
                   handleSpeak(sample);
                 }}
-                className="text-xs px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/60 hover:border-cyan-500/50 hover:bg-cyan-950/30 text-slate-300 hover:text-cyan-200 transition-all font-sans text-left"
+                className="text-xs px-3 py-1.5 rounded-lg bg-[#0b0d14] border border-[#1e2333] hover:border-slate-600 hover:bg-[#161a29] text-slate-300 hover:text-white transition-all text-left"
               >
                 "{sample}"
               </button>
@@ -97,12 +97,12 @@ export const AlexaModal: React.FC<AlexaModalProps> = ({ isOpen, onClose }) => {
             onChange={(e) => setUtterance(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSpeak()}
             placeholder="Type voice query..."
-            className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-cyan-400 transition-colors font-sans"
+            className="flex-1 bg-[#0b0d14] border border-[#1e2333] rounded-lg px-4 py-2 text-sm text-slate-100 focus:outline-none focus:border-blue-500 transition-colors font-sans"
           />
           <button
             onClick={() => handleSpeak()}
             disabled={loading}
-            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-semibold text-sm flex items-center gap-2 transition-all shadow-glow-cyan disabled:opacity-50"
+            className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm flex items-center gap-2 transition-all shadow-sm disabled:opacity-50"
           >
             {loading ? (
               <Sparkles className="w-4 h-4 animate-spin" />
@@ -115,33 +115,33 @@ export const AlexaModal: React.FC<AlexaModalProps> = ({ isOpen, onClose }) => {
 
         {/* Alexa Simulated Audio Visualizer & Response */}
         {result && (
-          <div className="rounded-xl border border-cyan-500/30 bg-slate-950/80 p-4 space-y-3 animate-fade-in">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-              <span className="text-xs font-mono text-cyan-400 flex items-center gap-1.5">
+          <div className="rounded-xl border border-[#1e2333] bg-[#0b0d14] p-4 space-y-3">
+            <div className="flex items-center justify-between border-b border-[#1e2333] pb-2">
+              <span className="text-xs text-blue-400 flex items-center gap-1.5 font-medium">
                 <Volume2 className="w-3.5 h-3.5" /> Alexa Spoken Response
               </span>
-              <div className="flex items-center gap-1 text-[11px] font-mono text-slate-500">
+              <div className="flex items-center gap-1 text-xs text-slate-500">
                 <Terminal className="w-3 h-3" />
                 <span>MCP Tools:</span>
                 {result.mcp_tools_called.map((tool) => (
-                  <span key={tool} className="text-cyan-300 font-semibold px-1 rounded bg-cyan-950/60">
+                  <span key={tool} className="text-blue-300 font-medium px-1 rounded bg-[#1e2333] font-mono">
                     {tool}()
                   </span>
                 ))}
               </div>
             </div>
 
-            <p className="text-sm text-slate-200 leading-relaxed font-sans italic">
+            <p className="text-sm text-slate-200 leading-relaxed italic">
               "{result.alexa_response}"
             </p>
 
             {/* Echo Show / Fire TV Card preview */}
-            <div className="p-3 rounded-lg bg-[#0e1633] border border-blue-500/20 text-xs">
-              <div className="text-[10px] font-mono text-blue-400 uppercase tracking-wider mb-1">
+            <div className="p-3 rounded-lg bg-[#121520] border border-[#1e2333] text-xs">
+              <div className="text-[10px] text-slate-400 uppercase tracking-wider mb-1 font-medium">
                 Display Card (Echo Show / Fire TV)
               </div>
               <div className="font-semibold text-white">{result.card.title}</div>
-              <div className="text-slate-300 text-[11px] mt-0.5">{result.card.text}</div>
+              <div className="text-slate-300 text-xs mt-0.5">{result.card.text}</div>
             </div>
           </div>
         )}

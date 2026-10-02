@@ -8,80 +8,50 @@
 
 body {
   margin: 0;
-  background-color: #050711;
-  color: #f8fafc;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #0b0d14;
+  color: #f1f5f9;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Futuristic background grid */
-.cyber-grid {
-  background-size: 36px 36px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+/* Clean, Humanized Panel */
+.clean-panel {
+  background-color: #121520;
+  border: 1px solid #1e2333;
 }
 
-/* Glass panel */
-.glass-panel {
-  background: rgba(11, 16, 33, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(56, 189, 248, 0.12);
+.clean-panel-hover:hover {
+  border-color: #2e354b;
+  background-color: #151927;
 }
 
-.glass-panel-glow {
-  background: rgba(11, 16, 33, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 240, 255, 0.28);
-  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.15);
-}
-
-/* Glowing text */
-.text-glow-cyan {
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
-}
-
-.text-glow-rose {
-  text-shadow: 0 0 12px rgba(244, 63, 94, 0.6);
-}
-
-.text-glow-amber {
-  text-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
-}
-
-/* Custom Cyber Scrollbar */
+/* Clean, Minimal Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(5, 7, 17, 0.6);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(56, 189, 248, 0.25);
-  border-radius: 3px;
+  background: #252b3d;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 240, 255, 0.5);
+  background: #3b4461;
 }
 
-/* Pulse badge animation */
-@keyframes live-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.35);
-    opacity: 0.4;
-  }
+/* Subtle indicator animation */
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
 }
 
-.animate-live-pulse {
-  animation: live-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.animate-subtle-pulse {
+  animation: subtle-pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

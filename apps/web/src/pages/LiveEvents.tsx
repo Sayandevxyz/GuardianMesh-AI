@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SmartEvent } from '../types';
-import { Activity, Filter, Radio, Shield, Code, Send, Check } from 'lucide-react';
+import { Activity, Radio, Code, Send, Check } from 'lucide-react';
 import { api } from '../api/client';
 
 interface LiveEventsProps {
@@ -52,20 +52,20 @@ export const LiveEvents: React.FC<LiveEventsProps> = ({ events, isWsConnected, o
   };
 
   return (
-    <div className="space-y-6 animate-fade-in pb-12">
+    <div className="space-y-6 pb-12 animate-fade-in">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <Activity className="w-5 h-5 text-cyan-400 animate-pulse" />
-            <h2 className="text-xl font-bold text-white font-sans">Real-Time Event Stream</h2>
-            <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono uppercase ${
-              isWsConnected ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30' : 'bg-amber-950 text-amber-400'
+            <Activity className="w-5 h-5 text-blue-400" />
+            <h2 className="text-xl font-bold text-white font-sans">Live Event Stream</h2>
+            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+              isWsConnected ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-800/60' : 'bg-amber-950/60 text-amber-300'
             }`}>
-              {isWsConnected ? 'Live WebSocket' : 'Polling'}
+              {isWsConnected ? 'Connected' : 'Connecting'}
             </span>
           </div>
-          <p className="text-xs text-slate-400 font-mono mt-1">
+          <p className="text-xs text-slate-400 mt-1">
             Standardized smart-home telemetry ingested and routed into the Situation Engine.
           </p>
         </div>
@@ -75,7 +75,7 @@ export const LiveEvents: React.FC<LiveEventsProps> = ({ events, isWsConnected, o
           <select
             value={selectedZone}
             onChange={(e) => setSelectedZone(e.target.value)}
-            className="bg-slate-900 border border-slate-800 text-slate-300 text-xs rounded-xl px-3 py-1.5 focus:border-cyan-400 focus:outline-none font-mono"
+            className="bg-slate-900 border border-slate-800 text-slate-300 text-xs rounded-lg px-3 py-1.5 focus:border-blue-400 focus:outline-none"
           >
             <option value="all">All Locations</option>
             <option value="front_door">Front Door</option>
@@ -87,7 +87,7 @@ export const LiveEvents: React.FC<LiveEventsProps> = ({ events, isWsConnected, o
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="bg-slate-900 border border-slate-800 text-slate-300 text-xs rounded-xl px-3 py-1.5 focus:border-cyan-400 focus:outline-none font-mono"
+            className="bg-slate-900 border border-slate-800 text-slate-300 text-xs rounded-lg px-3 py-1.5 focus:border-blue-400 focus:outline-none"
           >
             <option value="all">All Event Types</option>
             <option value="person_detected">Person Detected</option>
@@ -101,16 +101,16 @@ export const LiveEvents: React.FC<LiveEventsProps> = ({ events, isWsConnected, o
       </div>
 
       {/* Manual Telemetry Injection Bar */}
-      <div className="glass-panel rounded-2xl p-4 border border-cyan-500/20 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
-          <Radio className="w-4 h-4 animate-pulse" />
+      <div className="rounded-xl p-4 border border-slate-800 bg-[#121520] flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-2 text-xs font-medium text-slate-300">
+          <Radio className="w-4 h-4 text-blue-400" />
           <span>Manual Event Injection:</span>
         </div>
         <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
           <select
             value={injectType}
             onChange={(e) => setInjectType(e.target.value)}
-            className="bg-slate-950 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-1.5 font-mono"
+            className="bg-[#0b0d14] border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-1.5"
           >
             <option value="person_detected">Person Detected</option>
             <option value="motion_detected">Motion Detected</option>
@@ -124,7 +124,7 @@ export const LiveEvents: React.FC<LiveEventsProps> = ({ events, isWsConnected, o
           <select
             value={injectLocation}
             onChange={(e) => setInjectLocation(e.target.value)}
-            className="bg-slate-950 border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-1.5 font-mono"
+            className="bg-[#0b0d14] border border-slate-800 text-slate-200 text-xs rounded-lg px-3 py-1.5"
           >
             <option value="front_door">Front Door</option>
             <option value="garage">Garage</option>
@@ -135,27 +135,26 @@ export const LiveEvents: React.FC<LiveEventsProps> = ({ events, isWsConnected, o
           <button
             onClick={handleInjectEvent}
             disabled={injecting}
-            className="px-4 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs font-mono flex items-center gap-1.5 transition-all shadow-glow-cyan"
+            className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center gap-1.5 transition-colors disabled:opacity-50"
           >
-            {injectSuccess ? <Check className="w-3.5 h-3.5 text-emerald-950" /> : <Send className="w-3.5 h-3.5" />}
-            {injectSuccess ? 'Dispatched' : 'Inject Event'}
+            {injectSuccess ? <Check className="w-3.5 h-3.5" /> : <Send className="w-3.5 h-3.5" />}
+            {injectSuccess ? 'Sent' : 'Inject Event'}
           </button>
         </div>
       </div>
 
-      {/* Main Grid: Events List + Event Inspector */}
+      {/* Main Grid: Events List + Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Events Table (2 Cols) */}
-        <div className="lg:col-span-2 glass-panel rounded-2xl border border-slate-800/80 overflow-hidden">
-          <div className="p-4 border-b border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
-            <span>Showing {filteredEvents.length} events</span>
-            <span>Click row to inspect payload</span>
+        <div className="lg:col-span-2 rounded-xl border border-slate-800 bg-[#121520] overflow-hidden">
+          <div className="p-3.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
+            <span>{filteredEvents.length} events logged</span>
+            <span>Click to view payload</span>
           </div>
 
           <div className="divide-y divide-slate-800/60 max-h-[600px] overflow-y-auto">
             {filteredEvents.length === 0 ? (
-              <div className="p-8 text-center text-slate-500 text-xs font-mono">
-                No events matched criteria.
+              <div className="p-8 text-center text-slate-500 text-xs">
+                No events match criteria.
               </div>
             ) : (
               filteredEvents.map((evt) => {
@@ -164,28 +163,28 @@ export const LiveEvents: React.FC<LiveEventsProps> = ({ events, isWsConnected, o
                   <div
                     key={evt.id}
                     onClick={() => setSelectedEvent(evt)}
-                    className={`p-3.5 flex items-center justify-between text-xs cursor-pointer transition-all hover:bg-slate-900/60 ${
-                      isSelected ? 'bg-cyan-950/30 border-l-2 border-cyan-400' : ''
+                    className={`p-3.5 flex items-center justify-between text-xs cursor-pointer transition-colors hover:bg-slate-800/40 ${
+                      isSelected ? 'bg-slate-800/60 border-l-2 border-blue-500' : ''
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400"></div>
+                      <div className="w-2 h-2 rounded-full bg-blue-400"></div>
                       <div>
-                        <div className="font-semibold text-slate-200 capitalize flex items-center gap-2">
+                        <div className="font-medium text-slate-200 capitalize flex items-center gap-2">
                           {evt.eventType.replace('_', ' ')}
-                          <span className="text-[10px] font-mono px-1.5 rounded bg-slate-900 text-cyan-300 border border-slate-800">
-                            {evt.source.toUpperCase()}
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">
+                            {evt.source}
                           </span>
                         </div>
-                        <div className="text-[11px] font-mono text-slate-400 mt-0.5">
-                          {evt.deviceId} • {evt.location.replace('_', ' ')}
+                        <div className="text-xs text-slate-400 mt-0.5">
+                          {evt.deviceId} · {evt.location.replace('_', ' ')}
                         </div>
                       </div>
                     </div>
 
-                    <div className="text-right font-mono text-slate-400">
-                      <div>{new Date(evt.timestamp).toLocaleTimeString()}</div>
-                      <div className="text-[10px] text-cyan-400/80">{Math.round(evt.confidence * 100)}% conf</div>
+                    <div className="text-right text-slate-400">
+                      <div>{new Date(evt.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                      <div className="text-xs text-slate-500">{Math.round(evt.confidence * 100)}% conf</div>
                     </div>
                   </div>
                 );
@@ -194,39 +193,39 @@ export const LiveEvents: React.FC<LiveEventsProps> = ({ events, isWsConnected, o
           </div>
         </div>
 
-        {/* Event Payload Inspector (1 Col) */}
-        <div className="glass-panel rounded-2xl p-5 border border-cyan-500/20 h-fit">
-          <div className="flex items-center gap-2 pb-3 border-b border-slate-800 text-xs font-mono text-cyan-400">
-            <Code className="w-4 h-4" />
+        {/* Payload Inspector */}
+        <div className="rounded-xl p-5 border border-slate-800 bg-[#121520] h-fit">
+          <div className="flex items-center gap-2 pb-3 border-b border-slate-800 text-xs font-medium text-slate-300">
+            <Code className="w-4 h-4 text-blue-400" />
             <span>Event Contract Inspector</span>
           </div>
 
           {selectedEvent ? (
-            <div className="space-y-4 pt-4">
+            <div className="space-y-3.5 pt-3.5">
               <div>
-                <span className="text-[10px] font-mono uppercase text-slate-500">Event ID</span>
-                <p className="font-mono text-xs text-white font-semibold">{selectedEvent.id}</p>
+                <span className="text-xs text-slate-500 block">Event ID</span>
+                <p className="font-mono text-xs text-white">{selectedEvent.id}</p>
               </div>
-              <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+              <div className="grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <span className="text-[10px] text-slate-500">SOURCE</span>
-                  <p className="text-cyan-300">{selectedEvent.source.toUpperCase()}</p>
+                  <span className="text-slate-500 block">Source</span>
+                  <p className="text-slate-200 capitalize">{selectedEvent.source}</p>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500">CONFIDENCE</span>
-                  <p className="text-cyan-300">{Math.round(selectedEvent.confidence * 100)}%</p>
+                  <span className="text-slate-500 block">Confidence</span>
+                  <p className="text-slate-200">{Math.round(selectedEvent.confidence * 100)}%</p>
                 </div>
               </div>
               <div>
-                <span className="text-[10px] font-mono uppercase text-slate-500">Raw Normalized Payload</span>
-                <pre className="mt-1 p-3 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-300 overflow-x-auto">
+                <span className="text-xs text-slate-500 block mb-1">Normalized Payload</span>
+                <pre className="p-3 rounded-lg bg-[#0b0d14] border border-slate-800 text-[11px] font-mono text-slate-300 overflow-x-auto">
                   {JSON.stringify(selectedEvent, null, 2)}
                 </pre>
               </div>
             </div>
           ) : (
-            <div className="py-16 text-center text-xs font-mono text-slate-500">
-              Select any event from the stream to view its normalized JSON schema.
+            <div className="py-16 text-center text-xs text-slate-500">
+              Select an event to view its normalized data structure.
             </div>
           )}
         </div>

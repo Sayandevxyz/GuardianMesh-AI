@@ -159,7 +159,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050711] text-slate-100 cyber-grid flex flex-col font-sans">
+    <div className="min-h-screen bg-[#0b0d14] text-slate-100 flex flex-col font-sans">
       {/* Top Navbar */}
       <Navbar
         activeTab={activeTab}
@@ -176,8 +176,8 @@ export const App: React.FC = () => {
 
       {/* Demo Mode Notification Banner */}
       {demoBanner && (
-        <div className="bg-gradient-to-r from-cyan-950 via-blue-900 to-indigo-950 border-b border-cyan-500/50 py-2.5 px-4 text-center font-mono text-xs text-cyan-200 flex items-center justify-center gap-2 animate-fade-in">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <div className="bg-blue-950/70 border-b border-blue-800/60 py-2 px-4 text-center text-xs text-blue-200 flex items-center justify-center gap-2 animate-fade-in">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
           <span>{demoBanner}</span>
         </div>
       )}
